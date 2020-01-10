@@ -3,5 +3,14 @@
   "Title": "タイトル",
   "Category": "カテゴリー",
   "Problem": "問題",
-  "Register": "登録する"
+  "Register": "登録する",
+  "Login": "ログイン",
+  "Registered.": "登録が完了しました。",
+  "Drill List": "タイピング練習一覧",
+  "Go Practice": "挑戦する",
+  "Go Edit": "編集する",
+  "Go Delete": "削除する",
+  "Deleted.": "削除しました。",
+  "Practice": "練習",
+  "Invalid oparation was performed.": "不正な操作が行われました。"
 }

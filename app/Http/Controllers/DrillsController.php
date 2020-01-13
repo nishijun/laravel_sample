@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Drill;
+use App\User;
 
 class DrillsController extends Controller
 {
@@ -33,7 +35,8 @@ class DrillsController extends Controller
       ]);
 
       $drill = new Drill;
-      $drill->fill($request->all())->save();
+      // $drill->fill($request->all())->save();
+      Auth::user()->drills()->save($drill->fill($request->all()));
 
       return redirect('/drills/new')->with('flash_message', __('Registered.'));
     }
@@ -43,7 +46,8 @@ class DrillsController extends Controller
         return redirect('/drills/new')->with('flash_message', __('Invalid oparation was performed.'));
       }
 
-      $drill = Drill::find($id);
+      // $drill = Drill::find($id);
+      $drill = Auth::user()->drills()->find($id);
       return view('drills.edit', compact('drill'));
     }
 
@@ -78,7 +82,8 @@ class DrillsController extends Controller
         return redirect('/drills/new')->with('flash_message', __('Invalid oparation was performed.'));
       }
 
-      Drill::find($id)->delete();
+      // Drill::find($id)->delete();
+      Auth::user()->drills()->find($id)->delete();
       return redirect('/drills')->with('flash_message', __('Deleted.'));
     }
 
@@ -86,8 +91,13 @@ class DrillsController extends Controller
       if (!ctype_digit($id)) {
         return redirect('/drills/new')->with('flash_message', __('Invalid oparation was performed.'));
       }
-      
+
       $drill = Drill::find($id);
       return view('drills.show', compact('drill'));
+    }
+
+    public function mypage() {
+      $drills = Auth::user()->drills;
+      return view('drills.mypage', compact('drills'));
     }
 }
